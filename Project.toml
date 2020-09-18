@@ -1,0 +1,7 @@
+name = "RvSpectMLPlots"
+uuid = "6ad363e8-653f-4efd-a04b-f033e69a984c"
+authors = ["Eric Ford"]
+version = "0.0.1"
+
+[compat]
+julia = "1.5"

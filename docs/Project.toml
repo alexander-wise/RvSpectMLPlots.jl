@@ -1,0 +1,3 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+RvSpectMLPlots = "6ad363e8-653f-4efd-a04b-f033e69a984c"
