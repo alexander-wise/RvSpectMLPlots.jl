@@ -7,15 +7,14 @@ Author: Eric Ford
 Date:   September 2020
 """
 
-using RvSpectML
-using Plots, ColorSchemes
+
 
 function make_plots_scalpels(rvs::AbstractVector{T1}, ccfs::AbstractArray{T2,2}
                 ; σ_rvs::AbstractVector{T3} = ones(length(rvs)),
                 max_num_basis::Integer = 3,
                 v_grid::AbstractRange = 1:size(ccfs,1),
                 times::AbstractVector{T4} = collect(1:length(rvs)),
-                output_path::String = "" ) where
+                output_path::String = "", save_fig::Bool = false ) where
                 { T1<:Real, T2<:Real, T3<:Real, T4<:Real  }
 
     @assert length(rvs) == length(σ_rvs)
@@ -72,7 +71,9 @@ function make_plots_scalpels(rvs::AbstractVector{T1}, ccfs::AbstractArray{T2,2}
         xlabel!("Time (d)")
         ylabel!("RV (m/s)")
         title!("Cleaning RVs via Scalpels (" * string(num_basis) * " basis vectors)")
-        savefig(joinpath(output_path,"scalpels_rvs_" * string(num_basis) * ".png"))
+        if save_fig
+            savefig(joinpath(output_path,"scalpels_rvs_" * string(num_basis) * ".png"))
+        end
     end
     return plt
 end
