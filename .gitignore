@@ -25,7 +25,9 @@ tmp.jl
 /docs/site/
 
 # Jupyter
-/notebooks
+/notebooks/output
+/notebooks/examples/output
+/notebooks/old
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
