@@ -50,6 +50,15 @@ function get_λs(grids::V1, r::AR) where { T1<:AbstractRange, V1<:AbstractVector
   return
 end
 
+""" `add_time_gap_lines(plt, times )`
+Inputs:
+- plt:  AbstractPlot to add to
+- times: observation times
+Optional Inputs:
+- Δt_boundaries: list of interval boundaries for different line types
+- lweights: weights of lines dividing different intervals
+- lstyles: styles of lines  dividing different intervals
+"""
 function add_time_gap_lines(plt::AbstractPlot, times::AbstractVector{T} ; Δt_boundaries::AbstractVector{T2} = [0.5, 1.5, 7, 14, 42],
                                     lweights::AbstractVector{T3} = [ 1, 1, 1, 1, 2, 2, 3, 3  ],
                                     lstyles::AbstractVector{Symbol} = [ :dot, :dashdot, :dash, :solid, :dash, :solid, :dash, :solid ]

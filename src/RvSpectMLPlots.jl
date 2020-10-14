@@ -10,6 +10,11 @@ using StatsBase
 include("spectra.jl")
 export plot_spectrum_chunks, get_λs, add_time_gap_lines
 
+include("ccf.jl")
+export make_plot_ccf_vs_time, make_heatmap_ccf_vs_time
+#export make_plot_ccf_vs_order, make_plot_ccf_vs_chunk  # TODO: Write
+export make_heatmap_ccf_vs_order
+
 include("scalpels.jl")
 export make_plots_scalpels
 

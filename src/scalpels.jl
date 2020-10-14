@@ -8,7 +8,6 @@ Date:   September 2020
 """
 
 
-
 function make_plots_scalpels(rvs::AbstractVector{T1}, ccfs::AbstractArray{T2,2}
                 ; σ_rvs::AbstractVector{T3} = ones(length(rvs)),
                 max_num_basis::Integer = 3,
@@ -28,14 +27,6 @@ function make_plots_scalpels(rvs::AbstractVector{T1}, ccfs::AbstractArray{T2,2}
     ccfs_minus_mean = ccfs .- mean(ccfs,dims=2)
     zvals =ccfs_minus_mean
     colorscale = cgrad(:balance)
-    heatmap(v_grid, 1:size(ccfs,2),zvals',c=colorscale, clims=(-maximum(abs.(zvals)),maximum(abs.(zvals))) )
-
-
-
-    title!("CCF(v)-<CCF(v)>")
-    xlabel!("v (m/s)")
-    ylabel!("Obs #")
-    savefig(joinpath(output_path,"ccf_heatmap.png"))
 
     acfs = autocor(ccfs,0:size(ccfs,1)-1)
     acfs_minus_mean = acfs .- mean(acfs,dims=2)
@@ -45,19 +36,25 @@ function make_plots_scalpels(rvs::AbstractVector{T1}, ccfs::AbstractArray{T2,2}
     title!("ACF(δv)-<ACF(δv)>")
     xlabel!("Δv (m/s)")
     ylabel!("Obs #")
-    savefig(joinpath(output_path,"acf_heatmap.png"))
+    if save_fig
+        savefig(output_path * "acf_heatmap.png")
+    end
 
     svd_ccfs = svd(ccfs_minus_mean')
     plot(v_grid,svd_ccfs.V[:,1:max_num_basis])
     title!("CCF(v) basis functions")
     xlabel!("v (m/s)")
-    savefig(joinpath(output_path,"ccf_basis.png"))
+    if save_fig
+        savefig(output_path * "ccf_basis.png")
+    end
 
     svd_acfs = svd(acfs_minus_mean')
     plot(Δv_grid,svd_acfs.V[:,1:max_num_basis])
     title!("ACF(v) basis functions")
     xlabel!("Δv (m/s)")
-    savefig(joinpath(output_path,"acf_basis.png"))
+    if save_fig
+        savefig(output_path  * "acf_basis.png")
+    end
 
     alpha = svd_acfs.U'*rvs_centered
     idx = sortperm(abs.(alpha),rev=true)
@@ -72,7 +69,7 @@ function make_plots_scalpels(rvs::AbstractVector{T1}, ccfs::AbstractArray{T2,2}
         ylabel!("RV (m/s)")
         title!("Cleaning RVs via Scalpels (" * string(num_basis) * " basis vectors)")
         if save_fig
-            savefig(joinpath(output_path,"scalpels_rvs_" * string(num_basis) * ".png"))
+            savefig( output_path * "scalpels_rvs_" * string(num_basis) * ".png")
         end
     end
     return plt
