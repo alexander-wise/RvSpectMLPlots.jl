@@ -15,7 +15,7 @@ export make_plot_ccf_vs_time, make_heatmap_ccf_vs_time
 #export make_plot_ccf_vs_order, make_plot_ccf_vs_chunk  # TODO: Write
 export make_heatmap_ccf_vs_order
 
-include("scalpels.jl")
+include("scalpels_code.jl")
 export make_plots_scalpels
 
 include("dcpca.jl")
