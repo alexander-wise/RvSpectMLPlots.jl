@@ -91,9 +91,9 @@ function make_heatmap_ccf_vs_order(order_ccfs::AbstractArray{T2,3}
 
     @assert length(v_grid) == size(order_ccfs,1)
 
-    obs = 1:size(order_ccfs,2)
+    obs = 1:size(order_ccfs,3)
     #order_labels = map(c->order_list_timeseries.chunk_list[1].data[c].λ.indices[2], 1:size(order_ccfs,2))
-    orders_to_plot = findall(c->sum(order_ccfs[:,c,obs])>0, 1:size(order_ccfs,2))
+    orders_to_plot = findall(map(c->sum(order_ccfs[:,c,obs])>0, 1:size(order_ccfs,2)))
     zvals =  reshape(sum(order_ccfs[:,orders_to_plot,obs],dims=3)./maximum(sum(order_ccfs[:,orders_to_plot,obs],dims=3),dims=1),size(order_ccfs,1),size(order_ccfs[:,orders_to_plot,obs],2)) .-
              reshape(sum(order_ccfs[:,orders_to_plot,obs],dims=(2,3))./maximum(sum(order_ccfs[:,orders_to_plot,obs],dims=(2,3))),size(order_ccfs,1) )
     colorscale = cgrad(:balance)
